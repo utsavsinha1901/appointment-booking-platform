@@ -1,0 +1,30 @@
+# Development Dockerfile for frontend
+FROM node:20
+
+# Create app directory with correct permissions
+WORKDIR /app
+
+# Create a user with the same UID as the host user to avoid permission issues
+RUN groupadd -r nodeuser && useradd -r -g nodeuser nodeuser
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Change ownership of node_modules
+RUN chown -R nodeuser:nodeuser /app
+
+# Copy source code
+COPY . .
+
+# Switch to non-root user
+USER nodeuser
+
+# Expose port
+EXPOSE 3000
+
+# Start development server
+CMD ["npm", "run", "dev", "--", "--host"]
+
