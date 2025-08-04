@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    container_name: schedulink-backend-prod
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://schedulink_user:${DB_PASSWORD}@db:5432/schedulink_db
+      - ENVIRONMENT=production
+      - DEBUG=false
+      - ALLOWED_ORIGINS=${FRONTEND_URL},https://${DOMAIN_NAME:-localhost}
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/app
+    restart: unless-stopped
+    env_file:
+      - .env.production
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    container_name: schedulink-frontend-prod
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_API_URL=http://${EC2_PUBLIC_IP}:8000
+    restart: unless-stopped
+    env_file:
+      - frontend/.env.production
+
+  db:
+    image: postgres:15
+    container_name: schedulink-db
+    environment:
+      - POSTGRES_DB=schedulink_db
+      - POSTGRES_USER=schedulink_user
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    container_name: schedulink-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./ssl:/etc/nginx/ssl
+    depends_on:
+      - frontend
+      - backend
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
