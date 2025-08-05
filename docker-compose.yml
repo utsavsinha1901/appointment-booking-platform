@@ -22,5 +22,5 @@ services:
       - ./frontend/public:/app/public
     environment:
       - CHOKIDAR_USEPOLLING=true
-
+      - VITE_API_URL=http://3.111.170.237:8000
 
