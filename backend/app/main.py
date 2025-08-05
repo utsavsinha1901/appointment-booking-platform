@@ -21,7 +21,7 @@ models.Base.metadata.create_all(bind=engine)
 # Get environment configuration
 ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
 DEBUG = os.getenv("DEBUG", "true").lower() == "true"
-ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000").split(",")
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://appointment-booking-platform-2014825025.ap-south-1.elb.amazonaws.com").split(",")
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -36,7 +36,7 @@ app = FastAPI(
 # Enable CORS with environment-specific origins
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=ALLOWED_ORIGINS if ENVIRONMENT == "production" else ["*"],
+    allow_origins=["*"],  # Temporarily allow all origins for debugging
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -45,13 +45,21 @@ app.add_middleware(
 # Root endpoint
 @app.get("/")
 def read_root():
+    logger.info("Root endpoint accessed")
     return {"message": "Schedulink Backend API is running", "version": "1.0.0"}
+
+# Add a test endpoint for debugging
+@app.get("/test")
+def test_endpoint():
+    logger.info("Test endpoint accessed")
+    return {"status": "API is working", "timestamp": "2025-08-06"}
 
 # ===== USER ENDPOINTS =====
 
 @app.post("/users", response_model=schemas.UserOut)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     """Create a new user"""
+    logger.info(f"Attempting to create user with email: {user.email}")
     try:
         # Check if email already exists
         db_user = db.query(models.User).filter(models.User.email == user.email).first()
@@ -74,8 +82,10 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 @app.get("/users", response_model=List[schemas.UserOut])
 def list_users(db: Session = Depends(get_db)):
     """Get all users"""
+    logger.info("Fetching all users")
     try:
         users = db.query(models.User).all()
+        logger.info(f"Found {len(users)} users")
         return users
     except Exception as e:
         logger.error(f"Error fetching users: {str(e)}")
@@ -311,4 +321,5 @@ def get_user_bookings(user_id: int, db: Session = Depends(get_db)):
 def health_check():
     """Health check endpoint"""
     return {"status": "healthy", "service": "schedulink-api"}
+
 
