@@ -2,25 +2,74 @@ services:
   backend:
     build: ./backend
     container_name: schedulink-backend
-    ports:
-      - "8000:8000"
+    expose:
+      - "8000"
     volumes:
       - ./backend:/app
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    command: >
+      sh -c "
+        echo 'Waiting for database...' &&
+        sleep 10 &&
+        echo 'Initializing database...' &&
+        python /app/init_db.py &&
+        echo 'Starting backend server...' &&
+        uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+      "
+    environment:
+      - LOAD_BALANCER_DNS=${LOAD_BALANCER_DNS:-localhost}
+      - DATABASE_URL=postgresql://schedulink_user:${DB_PASSWORD:-SecurePass123}@db:5432/schedulink_db
     depends_on:
-      - frontend
+      - db
 
   frontend:
     build: 
       context: ./frontend
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.prod
     container_name: schedulink-frontend
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend/src:/app/src
-      - ./frontend/public:/app/public
+    expose:
+      - "3000"
     environment:
-      - CHOKIDAR_USEPOLLING=true
-      - VITE_API_URL=http://3.111.170.237:8000
+      - VITE_API_URL=http://${LOAD_BALANCER_DNS:-localhost}/api
 
+  # Database
+  db:
+    image: postgres:15
+    container_name: schedulink-db
+    environment:
+      - POSTGRES_DB=schedulink_db
+      - POSTGRES_USER=schedulink_user
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-SecurePass123}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  # pgAdmin for database management
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: schedulink-pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@schedulink.com
+      - PGADMIN_DEFAULT_PASSWORD=admin123
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  # Nginx reverse proxy for load balancer
+  nginx:
+    image: nginx:alpine
+    container_name: schedulink-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx-prod.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - frontend
+      - backend
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
