@@ -90,7 +90,11 @@ function AppContent() {
             <p className="mb-4 text-lg font-medium text-gray-700 dark:text-gray-300">
               Built with React + Tailwind CSS • FastAPI • SQLite • Docker
             </p>
-            <div className="flex justify-center items-center space-x-4 text-sm mb-6">
+            <div className="text-sm mb-6">
+              The web page is best compatible with Google Chrome.Thank You!
+            {/* </div>
+              
+
               <span>Frontend: http://localhost:3000</span>
               <span>•</span>
               {userRole === 'master' ? (
@@ -104,7 +108,7 @@ function AppContent() {
                 </a>
               ) : (
                 <span>Backend API Available</span>
-              )}
+              )} */}
             </div>
             
             {/* Copyright */}
