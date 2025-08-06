@@ -106,11 +106,11 @@ const UsersList = ({ refreshTrigger }) => {
                       {user.phone}
                     </a>
                   </div>
-                  {user.created_at && (
+                  {/* {user.created_at && (
                     <div className="text-xs text-gray-400">
                       Created: {new Date(user.created_at).toLocaleDateString()}
                     </div>
-                  )}
+                  )} */}
                 </div>
               </div>
             ))}
@@ -125,7 +125,7 @@ const UsersList = ({ refreshTrigger }) => {
                   <th className="px-6 py-3 text-left table-header">Name</th>
                   <th className="px-6 py-3 text-left table-header">Email</th>
                   <th className="px-6 py-3 text-left table-header">Phone</th>
-                  <th className="px-6 py-3 text-left table-header">Created</th>
+                  {/* <th className="px-6 py-3 text-left table-header">Created</th> */}
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -158,7 +158,7 @@ const UsersList = ({ refreshTrigger }) => {
                         {user.phone}
                       </a>
                     </td>
-                    <td className="table-cell text-gray-500">
+                    {/* <td className="table-cell text-gray-500">
                       {user.created_at 
                         ? new Date(user.created_at).toLocaleDateString('en-US', {
                             year: 'numeric',
@@ -167,7 +167,7 @@ const UsersList = ({ refreshTrigger }) => {
                           })
                         : 'N/A'
                       }
-                    </td>
+                    </td> */}
                   </tr>
                 ))}
               </tbody>
