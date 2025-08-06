@@ -12,7 +12,7 @@ services:
       - DATABASE_URL=postgresql://schedulink_user:SecurePass123@db:5432/schedulink_db
       - ENVIRONMENT=production
       - DEBUG=false
-      - ALLOWED_ORIGINS=http://13.204.23.2:3000,https://manikandan.info
+      - ALLOWED_ORIGINS=${FRONTEND_URL},https://manikandan.info
     depends_on:
       - db
     volumes:

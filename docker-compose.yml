@@ -29,7 +29,7 @@ services:
     expose:
       - "3000"
     environment:
-      - VITE_API_URL=http://${LOAD_BALANCER_DNS:-localhost}/api
+      - VITE_API_URL=http://manikandan.info/api
 
   # Database
   db:
@@ -63,7 +63,7 @@ services:
     image: nginx:alpine
     container_name: schedulink-nginx
     ports:
-      - "80:80"
+      - "8081:80" # This maps host port 8081 to container port 80
     volumes:
       - ./nginx-prod.conf:/etc/nginx/nginx.conf
     depends_on:
@@ -73,3 +73,5 @@ services:
 
 volumes:
   postgres_data:
+
+

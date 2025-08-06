@@ -21,7 +21,7 @@ models.Base.metadata.create_all(bind=engine)
 # Get environment configuration
 ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
 DEBUG = os.getenv("DEBUG", "true").lower() == "true"
-ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://appointment-booking-platform-2014825025.ap-south-1.elb.amazonaws.com").split(",")
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://manikandan.info,https://manikandan.info,http://appointment-booking-platform-1644783152.ap-south-1.elb.amazonaws.com").split(",")
 
 # Initialize FastAPI app
 app = FastAPI(
