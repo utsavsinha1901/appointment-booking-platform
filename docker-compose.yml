@@ -25,11 +25,13 @@ services:
     build: 
       context: ./frontend
       dockerfile: Dockerfile.prod
+      args:
+        VITE_API_URL: ${VITE_API_URL:-/api}
     container_name: schedulink-frontend
     expose:
-      - "3000"
+      - "3000"  # Don't expose directly, use nginx
     environment:
-      - VITE_API_URL=http://manikandan.info/api
+      - VITE_API_URL=${VITE_API_URL:-/api}
 
   # Database
   db:
