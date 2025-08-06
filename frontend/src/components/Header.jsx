@@ -51,7 +51,7 @@ const Header = () => {
               {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
 
-            {/* API Docs Link - Only for master */}
+            {/* API Docs Link - Only for master
             {userRole === 'master' && (
               <button
                 onClick={openApiDocs}
@@ -60,7 +60,7 @@ const Header = () => {
                 <ExternalLink className="w-4 h-4 mr-1" />
                 <span className="hidden sm:inline">API Docs</span>
               </button>
-            )}
+            )} */}
           </div>
         </div>
       </div>
