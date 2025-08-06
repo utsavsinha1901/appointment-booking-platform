@@ -252,9 +252,9 @@ const SlotsList = ({ refreshTrigger }) => {
           </div>
 
           {/* Desktop view */}
-          <div className="hidden lg:block">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead>
+          <div className="overflow-x-auto">
+            <table className="min-w-full table-auto border border-gray-200 dark:border-gray-700">
+              <thead className="bg-gray-100 dark:bg-gray-800">
                 <tr>
                   <th className="px-6 py-3 text-left table-header">ID</th>
                   <th className="px-6 py-3 text-left table-header">Title</th>
