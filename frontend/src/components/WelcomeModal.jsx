@@ -97,12 +97,12 @@ const WelcomeModal = ({ isOpen, onClose, onRoleSelect }) => {
           </div>
 
           <div className="flex justify-between items-center">
-            <button
+            {/* <button
               onClick={onClose}
               className="px-6 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white"
-            >
+            > 
               Skip for now
-            </button>
+            </button> */}
             <button
               onClick={handleContinue}
               disabled={!selectedRole}
