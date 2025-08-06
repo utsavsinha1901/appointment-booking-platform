@@ -10,6 +10,14 @@ export default defineConfig({
     strictPort: true,
     hmr: {
       clientPort: 3000
+    },
+    // Proxy API requests to backend during development
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
     }
   },
   build: {
@@ -34,5 +42,6 @@ export default defineConfig({
     __APP_VERSION__: JSON.stringify(process.env.npm_package_version || '1.0.0')
   }
 })
+
 
 

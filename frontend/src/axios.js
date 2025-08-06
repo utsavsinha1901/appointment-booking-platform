@@ -1,8 +1,10 @@
 import axios from 'axios';
 
-// Get API URL from environment or default to localhost
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+// Get API URL from environment
+// Both development and production should use /api to work with proxy/nginx
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
+console.log('Environment:', import.meta.env.MODE);
 console.log('Configured API Base URL:', API_BASE_URL);
 
 // Create axios instance with base configuration
@@ -48,5 +50,6 @@ api.interceptors.response.use(
 );
 
 export default api;
+
 
 
