@@ -23,7 +23,7 @@ const Footer = () => {
   const keyReferences = [
     // Conditionally show API Docs for master role
     ...(userRole === 'master' ? [{ name: 'API Docs', href: 'http://localhost:8000/docs', icon: icons.api }] : []),
-    { name: 'About Schedulink', href: '#', icon: icons.about },
+    { name: 'About Schedulink', href: '/about', icon: icons.about },
     { name: 'Vibe Coding', href: 'https://vibecoding.cognizant.com/', icon: icons.vibe },
   ];
 
@@ -36,9 +36,7 @@ const Footer = () => {
   ];
 
    const contactUsDetails = [
-    { name: 'support@schedulink.com', href: 'mailto:support@schedulink.com', icon: icons.email },
-    { name: '+1-555-123-4567', href: 'tel:+1-555-123-4567', icon: icons.phone },
-    { name: '123 Main St, Anytown USA', href: '#', icon: icons.address },
+    { name: 'vibecoding@cognizant.com', href: 'mailto:vibecoding@cognizant.com', icon: icons.email },
   ];
 
   return (
@@ -48,7 +46,7 @@ const Footer = () => {
           <div className="space-y-8 xl:col-span-1">
             <div className="flex items-center">
               <div className="flex-shrink-0 flex items-center">
-                 <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center mr-3">
+                 <div className="w-10 h-10 bg-black/20 rounded-lg flex items-center justify-center mr-3">
                   <Calendar className="w-6 h-6 text-white" />
                 </div>
                 <h1 className="text-2xl font-bold text-white">Schedulink</h1>
@@ -65,9 +63,13 @@ const Footer = () => {
               </h3>
               <ul className="mt-4 space-y-3">
                 {keyReferences.map((item) => (
-
                   <li key={item.name}>
-                    <a href={item.href} target="_blank" rel="noopener noreferrer" className="text-sm text-purple-200 hover:text-white transition-colors flex items-center">
+                    <a
+                      href={item.href}
+                      target={item.href.startsWith('http') ? '_blank' : '_self'}
+                      rel={item.href.startsWith('http') ? 'noopener noreferrer' : ''}
+                      className="text-sm text-purple-200 hover:text-white transition-colors flex items-center"
+                    >
                       {item.icon}
                       <span>{item.name}</span>
                     </a>
@@ -106,6 +108,10 @@ const Footer = () => {
                   </li>
                 ))}
               </ul>
+              <div className="mt-4 text-sm text-purple-200 flex items-center">
+                <Calendar className="w-4 h-4 mr-2 flex-shrink-0" />
+                <span>Created on 8th August 2025</span>
+              </div>
             </div>
           </div>
         </div>
