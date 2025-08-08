@@ -1,0 +1,65 @@
+# -------------------------
+# Python / FastAPI backend
+# -------------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.db
+*.sqlite3
+.env
+.env.*
+instance/
+*.log
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Pytest / coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# -------------------------
+# Node / React frontend
+# -------------------------
+node_modules/
+dist/
+build/
+*.log
+*.tmp
+*.temp
+.cache/
+coverage/
+
+# Vite
+vite.config.*.timestamp.json
+
+# -------------------------
+# Docker
+# -------------------------
+*.pid
+*.seed
+*.bak
+*.swp
+tmp/
+docker-compose.override.yml
+
+# -------------------------
+# OS / IDE files
+# -------------------------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# -------------------------
+# Nginx
+# -------------------------
+nginx/*.temp
+
