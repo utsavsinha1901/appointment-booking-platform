@@ -19,7 +19,7 @@ const Footer = () => {
 
   const keyReferences = [
     // Conditionally show API Docs for master role
-    ...(userRole === 'master' ? [{ name: 'API Docs', href: 'http://localhost:8000/docs', icon: icons.api }] : []),
+    ...(userRole === 'master' ? [{ name: 'API Docs', href: 'https://manikandan.info/api/docs', icon: icons.api }] : []),
     { name: 'About Schedulink', href: '#', icon: icons.about },
     { name: 'Vibe Coding', href: 'https://vibecoding.cognizant.com/', icon: icons.vibe },
   ];
