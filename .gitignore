@@ -12,6 +12,8 @@ __pycache__/
 .env.*
 instance/
 *.log
+__pycache__/
+*.pyc
 
 # Virtual environments
 venv/
@@ -63,3 +65,5 @@ Thumbs.db
 # -------------------------
 nginx/*.temp
 
+__pycache__/
+*.pyc
