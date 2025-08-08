@@ -6,6 +6,7 @@ import SlotForm from './components/SlotForm';
 import UsersList from './components/UsersList';
 import SlotsList from './components/SlotsList';
 import WelcomeModal from './components/WelcomeModal';
+import Footers from './components/Footer'
 
 function AppContent() {
   // Refresh triggers to update lists when new items are created
@@ -85,14 +86,14 @@ function AppContent() {
         </div>
 
         {/* Footer */}
-        <footer className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
+        {/* <footer className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
           <div className="text-center text-gray-500 dark:text-gray-400">
             <p className="mb-4 text-lg font-medium text-gray-700 dark:text-gray-300">
               Built with React + Tailwind CSS • FastAPI • SQLite • Docker
             </p>
             <div className="text-sm mb-6">
               The web page is best compatible with Google Chrome.Thank You!
-            {/* </div>
+            </div>
               
 
               <span>Frontend: http://localhost:3000</span>
@@ -108,10 +109,10 @@ function AppContent() {
                 </a>
               ) : (
                 <span>Backend API Available</span>
-              )} */}
+              )}
             </div>
             
-            {/* Copyright */}
+            
             <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
               <p className="text-sm text-gray-400 dark:text-gray-500">
                 © 2025 Cognizant Technology Solutions. All rights reserved.
@@ -121,8 +122,9 @@ function AppContent() {
               </p>
             </div>
           </div>
-        </footer>
+        </footer> */}
       </main>
+        <Footers />
     </div>
   );
 }
@@ -136,4 +138,3 @@ function App() {
 }
 
 export default App;
-
